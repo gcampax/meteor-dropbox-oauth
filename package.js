@@ -1,7 +1,7 @@
 Package.describe({
     name: 'gcampax:dropbox-oauth',
     summary: "Login service for dropbox accounts",
-    version: '1.0.0',
+    version: '1.0.1',
     git: 'https://github.com/gcampax/meteor-dropbox-oauth'
 });
 
@@ -15,7 +15,7 @@ Package.onUse(function(api) {
 
     api.export('DropboxOAuth');
 
-    api.addFiles( ['dropbox_configure.html', 'dropbox_configure.js'], 'client');
+    api.addFiles(['dropbox_configure.html', 'dropbox_configure.js'], 'client');
     api.addFiles('dropbox_server.js', 'server');
     api.addFiles('dropbox_client.js', 'client');
 });
