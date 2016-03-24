@@ -17,12 +17,12 @@ Package.onUse(function (api) {
 
     // Package files
     api.addFiles([
-        'client/dropbox_client.js',
-        'client/dropbox_configure.html',
-        'client/dropbox_configure.js'
+        'client/request-credential.js',
+        'client/configure-dialog.html',
+        'client/configure-dialog.js'
     ], 'client');
     api.addFiles([
-        'server/dropbox_server.js'
+        'server/oauth-service.js'
     ], 'server');
 
     // Exposed object
