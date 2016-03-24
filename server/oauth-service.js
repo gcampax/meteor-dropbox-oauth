@@ -75,7 +75,7 @@ var getAccountInfo = function (accessToken) {
     };
 
     try {
-        return HTTP.get(hostname, options).data;
+        return HTTP.post(hostname, options).data;
     } catch (err) {
         throw new Error('Failed to fetch identity from dropbox. ' + err.message);
     }

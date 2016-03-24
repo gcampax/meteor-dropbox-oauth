@@ -1,7 +1,8 @@
 Package.describe({
-    name: 'vladgolubev:dropbox-oauth',
+    name: 'gcampax:dropbox-oauth',
     summary: 'Login service for dropbox accounts',
     version: '2.0.0',
+    documentation: 'README.md',
     git: 'https://github.com/vladgolubev/meteor-dropbox-oauth'
 });
 
