@@ -3,23 +3,24 @@ DropboxOAuth = {};
 OAuth.registerService('dropbox', 2, null, function (query) {
     var response = getTokens(query);
     var accessToken = response.accessToken;
-    var identity = getIdentity(accessToken);
+    var accountInfo = getAccountInfo(accessToken);
 
     var serviceData = {
-        id: identity.uid,
+        id: accountInfo.account_id,
         accessToken: accessToken,
         expiresAt: (+new Date()) + (1000 * response.expiresIn || 0)
     };
 
-    // include all fields from dropbox
-    // https://www.dropbox.com/developers/core/docs#account-info
-    var fields = _.pick(identity, ['display_name', 'country']);
-    _.extend(serviceData, fields);
+    _.extend(serviceData, {
+        display_name: accountInfo.name.display_name,
+        country: accountInfo.country,
+        email: accountInfo.email
+    });
 
     return {
         serviceData: serviceData,
         options: {
-            profile: { name: identity.display_name }
+            profile: { name: accountInfo.name.display_name }
         }
     };
 });
@@ -61,11 +62,14 @@ var getTokens = function (query) {
     }
 };
 
-var getIdentity = function (accessToken) {
+var getAccountInfo = function (accessToken) {
+    var hostname = 'https://api.dropboxapi.com/2/users/get_current_account';
+    var options = {
+        headers: { Authorization: 'Bearer ' + accessToken }
+    };
+
     try {
-        return HTTP.get('https://api.dropbox.com/1/account/info', {
-            headers: { Authorization: 'Bearer ' + accessToken }
-        }).data;
+        return HTTP.get(hostname, options).data;
     } catch (err) {
         throw new Error('Failed to fetch identity from dropbox. ' + err.message);
     }
