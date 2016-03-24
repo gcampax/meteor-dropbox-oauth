@@ -5,18 +5,26 @@ Package.describe({
     git: 'https://github.com/vladgolubev/meteor-dropbox-oauth'
 });
 
-Package.onUse(function(api) {
-    api.versionsFrom('1.2');
+Package.onUse(function (api) {
+    api.versionsFrom('1.2.1');
+
+    // Third-party packages
     api.use('oauth', ['client', 'server']);
     api.use('oauth2', ['client', 'server']);
-    api.use('http', ['client', 'server']);
     api.use('templating', 'client');
     api.use('http', 'server');
     api.use('service-configuration', ['client', 'server']);
 
-    api.export('DropboxOAuth');
+    // Package files
+    api.addFiles([
+        'client/dropbox_client.js',
+        'client/dropbox_configure.html',
+        'client/dropbox_configure.js'
+    ], 'client');
+    api.addFiles([
+        'server/dropbox_server.js'
+    ], 'server');
 
-    api.addFiles(['dropbox_configure.html', 'dropbox_configure.js'], 'client');
-    api.addFiles('dropbox_server.js', 'server');
-    api.addFiles('dropbox_client.js', 'client');
+    // Exposed object
+    api.export('DropboxOAuth');
 });
